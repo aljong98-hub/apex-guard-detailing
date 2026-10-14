@@ -583,7 +583,7 @@
         </div>
         <div class="contact-detail">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 5h18v14H3V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-          <span><strong>Email</strong><a href="mailto:info@apexguarddetailing.ca">info@apexguarddetailing.ca</a></span>
+          <span><strong>Email</strong><a href="mailto:apexguard200@gmail.com">apexguard200@gmail.com</a></span>
         </div>
         <div class="contact-detail">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -604,7 +604,9 @@
         </div>
       </div>
 
-      <form class="contact-form" id="quoteForm" novalidate>
+      <form class="contact-form" id="quoteForm" name="quote-request" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="quote-request">
+        <p hidden><label>Don&rsquo;t fill this out: <input name="bot-field"></label></p>
         <div class="form-row cols-2">
           <div class="field">
             <label for="fullName">Full Name <span class="required">*</span></label>
@@ -656,7 +658,7 @@
           </div>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Send Quote Request</button>
-        <p class="field-helper">This form opens your email app to send us your request. Prefer to email directly? Reach us at <a href="mailto:info@apexguarddetailing.ca" style="color: var(--bronze-400);">info@apexguarddetailing.ca</a>.</p>
+        <p class="field-helper">We&rsquo;ll reply to your request as soon as we can. Prefer to email directly? Reach us at <a href="mailto:apexguard200@gmail.com" style="color: var(--bronze-400);">apexguard200@gmail.com</a>.</p>
         <p class="form-status" id="formStatus" role="status"></p>
       </form>
     </div>
@@ -686,7 +688,7 @@
         <h4>Contact</h4>
         <ul>
           <li><a href="tel:+15068781635">(506) 878-1635</a></li>
-          <li><a href="mailto:info@apexguarddetailing.ca">info@apexguarddetailing.ca</a></li>
+          <li><a href="mailto:apexguard200@gmail.com">apexguard200@gmail.com</a></li>
           <li>Mon&ndash;Sat: 8:00 AM &ndash; 6:00 PM</li>
         </ul>
       </div>

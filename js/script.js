@@ -121,7 +121,7 @@
     });
   })();
 
-  /* ---------- Contact form (mailto fallback) ---------- */
+  /* ---------- Contact form (Netlify Forms) ---------- */
   var form = document.getElementById("quoteForm");
   var formStatus = document.getElementById("formStatus");
 
@@ -132,10 +132,6 @@
       var name = form.fullName.value.trim();
       var phone = form.phone.value.trim();
       var email = form.email.value.trim();
-      var vehicle = form.vehicle.value.trim();
-      var service = form.service.value;
-      var preferredDate = form.preferredDate.value.trim();
-      var message = form.message.value.trim();
 
       if (!name || !phone || !email) {
         formStatus.textContent = "Please fill in your name, phone, and email before sending.";
@@ -143,23 +139,31 @@
         return;
       }
 
-      var bodyLines = [
-        "Name: " + name,
-        "Phone: " + phone,
-        "Email: " + email,
-        vehicle ? "Vehicle: " + vehicle : null,
-        service ? "Service: " + service : null,
-        preferredDate ? "Preferred Date: " + preferredDate : null,
-        message ? "Message: " + message : null
-      ].filter(Boolean);
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      formStatus.textContent = "Sending your request…";
+      formStatus.removeAttribute("data-state");
 
-      var mailto = "mailto:info@apexguarddetailing.ca" +
-        "?subject=" + encodeURIComponent("Quote Request from " + name) +
-        "&body=" + encodeURIComponent(bodyLines.join("\n"));
+      var body = new URLSearchParams(new FormData(form)).toString();
 
-      window.location.href = mailto;
-      formStatus.textContent = "Opening your email app to send this request…";
-      formStatus.setAttribute("data-state", "success");
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error("Request failed");
+          form.reset();
+          formStatus.textContent = "Thanks, " + name.split(" ")[0] + "! Your request was sent. We'll get back to you soon.";
+          formStatus.setAttribute("data-state", "success");
+        })
+        .catch(function () {
+          formStatus.textContent = "Sorry, something went wrong. Please call (506) 878-1635 or email apexguard200@gmail.com.";
+          formStatus.setAttribute("data-state", "error");
+        })
+        .then(function () {
+          if (submitBtn) submitBtn.disabled = false;
+        });
     });
   }
 })();
