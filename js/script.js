@@ -125,6 +125,17 @@
   var form = document.getElementById("quoteForm");
   var formStatus = document.getElementById("formStatus");
 
+  var areaBtn = document.getElementById("areaCheckBtn");
+  if (areaBtn && form) {
+    areaBtn.addEventListener("click", function () {
+      if (form.service) form.service.value = "Not sure — please advise";
+      if (form.message && !form.message.value.trim()) {
+        form.message.value = "Hi! I'm located in (town / address): ______. Do you service my area?";
+      }
+      setTimeout(function () { form.fullName.focus({ preventScroll: true }); }, 600);
+    });
+  }
+
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
