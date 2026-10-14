@@ -1034,6 +1034,7 @@ textarea:focus-visible {
 .area-visual svg { color: var(--bronze-400); margin-bottom: var(--space-3); }
 .area-visual h3 { color: var(--white); }
 .area-visual p { color: var(--steel-400); margin-bottom: 0; }
+#quoteForm { scroll-margin-top: 110px; }
 .area-actions {
   display: flex;
   flex-wrap: wrap;
