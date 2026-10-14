@@ -121,7 +121,7 @@
     });
   })();
 
-  /* ---------- Contact form (Netlify Forms) ---------- */
+  /* ---------- Contact form (emails the request via FormSubmit) ---------- */
   var form = document.getElementById("quoteForm");
   var formStatus = document.getElementById("formStatus");
 
@@ -144,15 +144,17 @@
       formStatus.textContent = "Sending your request…";
       formStatus.removeAttribute("data-state");
 
-      var body = new URLSearchParams(new FormData(form)).toString();
+      var data = {};
+      new FormData(form).forEach(function (value, key) { data[key] = value; });
 
-      fetch("/", {
+      fetch(form.action.replace("formsubmit.co/", "formsubmit.co/ajax/"), {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(data)
       })
-        .then(function (res) {
-          if (!res.ok) throw new Error("Request failed");
+        .then(function (res) { return res.json(); })
+        .then(function (result) {
+          if (String(result.success) !== "true") throw new Error("Request failed");
           form.reset();
           formStatus.textContent = "Thanks, " + name.split(" ")[0] + "! Your request was sent. We'll get back to you soon.";
           formStatus.setAttribute("data-state", "success");
